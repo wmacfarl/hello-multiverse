@@ -5,7 +5,6 @@
         </div>
         <div class="navbar-default">
             <ul class="navbar-nav nav">
-                <li><a href="#" (click)="onSelect('game')">Play</a></li>
                 <li><a href="#" (click)="onSelect('map-editor')">Map</a></li>
                 <li><a href="#" (click)="onSelect('screen-editor')">Screen</a></li>
                 <li><a href="#" (click)="onSelect('code-editor')">Code</a></li>
@@ -13,7 +12,9 @@
                 <li><a href="#" (click)="onSelect('tile-editor')">Tile</a></li>
                 <li><a href="#" (click)="onSelect('music-editor')">Music</a></li>
             </ul>
-            <button type="button" class="btn btn-success navbar-right navbar-nav" style="text-align: center; margin-right: 0px; margin-top: 7px;">
+            <button type="button" (click)="onSelect('game')" 
+            class="btn btn-success navbar-right navbar-nav" 
+            style="text-align: center; margin-right: 0px; margin-top: 7px;">
                 Play
             </button>
         </div>
