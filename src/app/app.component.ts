@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hello-multiverse';
-  loadedFeature: string = 'game'
+  loadedFeature: string = 'tile-editor'
 
   onNavigate(feature: string){
     this.loadedFeature = feature;
