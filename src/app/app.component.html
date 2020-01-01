@@ -1,7 +1,14 @@
-<app-header></app-header>
+<app-header (featureSelected)="onNavigate($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <app-game *ngIf="loadedFeature === 'game'"></app-game>
+      <app-code-editor *ngIf="loadedFeature === 'code-editor'"></app-code-editor>
+      <app-map-editor *ngIf="loadedFeature === 'map-editor'"></app-map-editor>
+      <app-music-editor *ngIf="loadedFeature === 'music-editor'"></app-music-editor>
+      <app-screen-editor *ngIf="loadedFeature === 'screen-editor'"></app-screen-editor>
+      <app-sprite-editor *ngIf="loadedFeature === 'sprite-editor'"></app-sprite-editor>
+      <app-tile-editor *ngIf="loadedFeature === 'tile-editor'"></app-tile-editor>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "recipe-book": {
+    "hello-multiverse": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/recipe-book",
+            "outputPath": "dist/hello-multiverse",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "recipe-book:build"
+            "browserTarget": "hello-multiverse:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "recipe-book:build:production"
+              "browserTarget": "hello-multiverse:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "recipe-book:build"
+            "browserTarget": "hello-multiverse:build"
           }
         },
         "test": {
@@ -112,15 +112,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "recipe-book:serve"
+            "devServerTarget": "hello-multiverse:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "recipe-book:serve:production"
+              "devServerTarget": "hello-multiverse:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "recipe-book"
+  "defaultProject": "hello-multiverse"
 }
