@@ -10,6 +10,7 @@ import { SpriteEditorComponent } from './sprite-editor/sprite-editor.component';
 import { MusicEditorComponent } from './music-editor/music-editor.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { GameComponent } from './game/game.component';
+import { PixelPainterComponent } from './pixel-painter/pixel-painter.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { GameComponent } from './game/game.component';
     MusicEditorComponent,
     CodeEditorComponent,
     GameComponent,
+    PixelPainterComponent,
   ],
   imports: [
     BrowserModule
