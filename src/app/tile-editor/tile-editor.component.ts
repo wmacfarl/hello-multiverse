@@ -3,7 +3,7 @@ import * as p5 from 'p5';
 import { RecursiveTemplateAstVisitor } from '@angular/compiler';
 import {PixelGrid} from '../shared/pixel-grid';
 import { ColorPalette } from '../shared/color-palette';
-import {PixelPainterComponent} from '../pixel-painter/pixel-painter.component'
+
 
 @Component({
   selector: 'app-tile-editor',

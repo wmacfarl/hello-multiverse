@@ -11,6 +11,8 @@ import { MusicEditorComponent } from './music-editor/music-editor.component';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { GameComponent } from './game/game.component';
 import { PixelPainterComponent } from './pixel-painter/pixel-painter.component';
+import { TilePaletteBrowserComponent } from './tile-editor/tile-palette-browser/tile-palette-browser.component';
+import { TilePaletteComponent } from './tile-editor/tile-palette/tile-palette.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { PixelPainterComponent } from './pixel-painter/pixel-painter.component';
     CodeEditorComponent,
     GameComponent,
     PixelPainterComponent,
+    TilePaletteBrowserComponent,
+    TilePaletteComponent,
   ],
   imports: [
     BrowserModule
