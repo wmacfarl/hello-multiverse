@@ -12,7 +12,6 @@ app.set("view engine", "ejs");
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({extended: false}));
 
-var appModes = ["index", "map", "screen", "code", "sprite", "tile", "music", "play"];
 app.use(express.static('static'))
 
 app.get("/", function (request, response){
