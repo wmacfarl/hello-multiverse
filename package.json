@@ -1,5 +1,5 @@
 {
-  "name": "express_tutorial",
+  "name": "hello-multiverse",
   "version": "1.0.0",
   "description": "a learning project",
   "main": "app.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wmacfarl/express_tutorial.git"
+    "url": "git+https://github.com/wmacfarl/hello-multiverse.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wmacfarl/express_tutorial/issues"
+    "url": "https://github.com/wmacfarl/hello-multiverse/issues"
   },
-  "homepage": "https://github.com/wmacfarl/express_tutorial#readme",
+  "homepage": "https://github.com/wmacfarl/hello-multiverse#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.0.1",
