@@ -7,7 +7,23 @@ let sketch = function(p){
       p.spriteEditor = spriteEditor;
     }
 
+    p.loadPainterImage = (event) =>{
+      let f = p.loadFileInput.elt.files[0];
+      p5.File._load(f, p.readyImageForImport);
+    }
+
+    p.readyImageForImport = (f) =>{
+      console.log(f);
+      p.img = p.createImg(f.data);
+    }
+
     p.setup = () => {
+
+      p.importButton = p.select("#painter-import-button");
+      p.loadFileInput = p.select("#painter-load-file-input");
+      p.loadFileInput.changed(p.loadPainterImage);
+      p.importButton.mousePressed(p.importFile);
+
 	  p.pixelCanvasSize = 480;
 	  p.tileDimension = 16;
 	  p.pixelDrawSize = p.pixelCanvasSize/p.tileDimension;
@@ -18,12 +34,21 @@ let sketch = function(p){
       let canvas = p.createCanvas(p.pixelCanvasSize+p.pixelDrawSize*2, p.pixelCanvasSize).parent('pixel-painter-canvas');
     };
 
+    p.importFile = () => {
+      console.log(p.loadFileInput.value())
+    }
+
     p.draw = () => {
+
       p.background(128);
       p.fill(0);
       p.drawPixelGrid(p.pixelGrid)
       p.drawColorPalette(p.colorPalette);
       p.pMouseIsPressed = p.mouseIsPressed;
+      if (p.img){
+        console.log("here");
+        p.image(p.img, 0, 0, p.width, p.height);
+      }
     };
 
     p.drawColorPalette = (colorPalette) => {
@@ -68,6 +93,7 @@ let sketch = function(p){
         }
       }
     }
+
   }
 
   export let pixelPainter = new p5(sketch);

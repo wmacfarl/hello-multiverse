@@ -17,3 +17,12 @@ function addFile (file) {
     return readFile(file)
         .then(arrayBuffer => Database.images.add(new Image(arrayBuffer)));
 }
+
+async function saveImageToDB(imagePath, url, name) {
+    const res = await fetch(imagePath);
+    const blob = await res.blob();
+    // Store the binary data in indexedDB:
+    await db.images.put({
+        image: blob,
+    });
+}
