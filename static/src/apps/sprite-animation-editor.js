@@ -15,7 +15,7 @@ let sketch = function(p){
 	    p.pixelDrawSize = p.canvasHeight/p.tileDimension;
       p.canvasWidth = p.pixelDrawSize*2*8;
       p.frameSize = p.pixelDrawSize*2;
-      let canvas = p.createCanvas(p.canvasWidth, p.canvasHeight).parent('sprite-animation-editor-canvas');
+      let canvas = p.createCanvas(p.canvasWidth, p.canvasHeight/2).parent('sprite-animation-editor-canvas');
     };
   
     p.draw = () => {

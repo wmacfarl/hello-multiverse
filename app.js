@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('static'))
 
 app.get("/", function (request, response){
-    response.render("index");
+    response.render("index", {app_modes: app_modes});
 });
 
 
