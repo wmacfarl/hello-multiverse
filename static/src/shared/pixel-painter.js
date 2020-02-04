@@ -14,15 +14,32 @@ let sketch = function(p){
 
     p.readyImageForImport = (f) =>{
       console.log(f);
-      p.img = p.createImg(f.data);
+      p.loadImage(f.data, p.imageLoaded);
+    }
+
+    p.imageLoaded = (img) =>{
+      if (img.width == 16 && img.height == 16){
+        p.loadImageOntoPixelCanvas(img);
+
+      }else{
+        alert("File must be a 16x16 image.");
+      }
+
+    }
+
+    p.loadImageOntoPixelCanvas= (img) =>{
+      for (let i = 0; i < img.width; i++){
+        for (let j = 0; j < img.height; j++){
+          let pixel = img.get(i,j);
+          p.pixelGrid.pixels[i][j] = pixel;
+        }
+      }
     }
 
     p.setup = () => {
 
-      p.importButton = p.select("#painter-import-button");
       p.loadFileInput = p.select("#painter-load-file-input");
       p.loadFileInput.changed(p.loadPainterImage);
-      p.importButton.mousePressed(p.importFile);
 
 	  p.pixelCanvasSize = 480;
 	  p.tileDimension = 16;
@@ -45,10 +62,6 @@ let sketch = function(p){
       p.drawPixelGrid(p.pixelGrid)
       p.drawColorPalette(p.colorPalette);
       p.pMouseIsPressed = p.mouseIsPressed;
-      if (p.img){
-        console.log("here");
-        p.image(p.img, 0, 0, p.width, p.height);
-      }
     };
 
     p.drawColorPalette = (colorPalette) => {
