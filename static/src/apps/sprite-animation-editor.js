@@ -3,7 +3,6 @@ import {PixelGrid} from '../shared/pixel-grid.js';
 let sketch = function(p){
 
     p.setSpriteEditor = (spriteEditor) =>{
-        console.log("setting sprite editor");
         p.spriteEditor = spriteEditor;
     }
 
@@ -16,14 +15,41 @@ let sketch = function(p){
       p.canvasWidth = p.pixelDrawSize*2*8;
       p.frameSize = p.pixelDrawSize*2;
       let canvas = p.createCanvas(p.canvasWidth, p.canvasHeight/2).parent('sprite-animation-editor-canvas');
+
+      p.frameImageArray = [];
+      for (let i = 0; i < 4; i++){
+        p.frameImageArray[i] = [];
+      }
+
+      p.setButton = p.select("#animation-set-button");
+      p.setButton.mousePressed(p.setAnimationFrame);
     };
   
+    p.setAnimationFrame = () => {
+      
+      let pixelData = p.spriteEditor.pixelPainter.pixelGrid.pixels;
+      let img = p.imageFromPixelArray(pixelData);
+      p.frameImageArray[p.selectedAnimation][p.selectedFrame] = img;
+    }
+
+    p.imageFromPixelArray = (pixelData) => {
+      let img = p.createImage(16,16);
+      img.loadPixels();
+      for (let i = 0; i < pixelData.length; i++){
+        for (let j = 0; j < pixelData[i].length; j++){
+          console.log(pixelData[i][j]);
+          img.set(i, j, p.color(pixelData[i][j]));
+        }
+      }
+      img.updatePixels();
+      return img;
+    }
+
     p.draw = () => {
         p.background(255);
       
       if(p.mouseIsPressed){
         let topLeftColor = p.spriteEditor.pixelPainter.pixelGrid.pixels[0][0];
-        console.log("color: " + topLeftColor);
       } 
 
       for (let i = 0; i < 4; i++){
@@ -46,15 +72,16 @@ let sketch = function(p){
         let h = p.frameSize;
 
         if (p.selectedFrame === frameIndex && p.selectedAnimation === animationIndex){
-          p.fill(255,0,0);
-        }else{
-          p.fill(128);
+          p.fill(0,200, 0, 80);
+          p.rect(x, y, w, h);
         }
-
-        p.rect(x, y, w, h);
-
+        if (p.frameImageArray[animationIndex][frameIndex]){
+          p.image(p.frameImageArray[animationIndex][frameIndex], x, y, w, h);
+        }else{
+          p.fill(128,80);
+          p.rect(x,y,w,h);
+        }
         if (p.mouseIsPressed && p.pointInRectangle(p.mouseX, p.mouseY, x, y, w, h)){
-          console.log("truse");
           p.selectedAnimation = animationIndex;
           p.selectedFrame = frameIndex;
         }

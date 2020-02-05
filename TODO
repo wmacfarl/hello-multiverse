@@ -1,6 +1,12 @@
-Buttons for sprite-editor app
--load from editor
--edit
--load file
--save file
--clear
+Sprite Editor TODO
+
+Save the image-set and animation-set as an object in the application database to be loaded+used in other parts of the app.
+Save/load the image into an application database
+
+Reasonable interface for setting the colors in the color-palette
+Animation preview play/pause
+
+DONE
+Upload an image from your computer into the paint editor
+Edit the image using the paint editor
+Set images from paint editor as frames in the animation editor
