@@ -1,3 +1,6 @@
+import db from './static/src/db/database.js';
+
+//console.log(require.resolve('./static/src/db/database.js'));
 var express = require("express");
 var http = require("http");
 var path = require("path");
@@ -6,6 +9,8 @@ var bodyParser = require("body-parser");
 
 var app = express();
 var app_modes = ["map", "screen", "code", "sprite", "tile", "music"]
+
+//db.op
 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
