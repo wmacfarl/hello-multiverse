@@ -3,7 +3,7 @@
 <%- include ('navbar.ejs'); -%>
 
 <% if (typeof locals.app_mode != 'undefined'){ %>
-  <%- include ("../static/apps/" +app_mode +"/body.ejs"); -%>
+  <%- include ("../static/apps/" +app_mode +"/body.html"); -%>
 <% } %>
 
 <%- include ('footer.ejs'); -%>
