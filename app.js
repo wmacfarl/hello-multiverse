@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 
 const __dirname = path.resolve();
 var app = express();
-var app_modes = ["map", "screen", "code", "sprite", "tile", "music"]
+var app_modes = ["map-editor", "screen-editor", "code-editor", "sprite-editor", "tile-editor", "music-editor"]
 
 //db.op
 
