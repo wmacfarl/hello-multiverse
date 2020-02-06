@@ -7,7 +7,7 @@ let sketch = function(p){
       p.spriteEditor = spriteEditor;
     }
 
-    p.loadPainterImage = (event) =>{
+    p.loadFromFile = () =>{
       let f = p.loadFileInput.elt.files[0];
       p5.File._load(f, p.readyImageForImport);
     }
@@ -27,6 +27,22 @@ let sketch = function(p){
 
     }
 
+    p.loadFromDb = () =>{
+
+    }
+
+    p.saveToDb = () =>{
+
+    }
+
+    p.clearCanvas = () =>{
+      for (let i = 0; i < p.pixelGrid.pixels.length; i++){
+        for (let j = 0; j < p.pixelGrid.pixels[i].length; j++){
+          p.pixelGrid.pixels[i][j] = p.color(255,255);
+        }
+      }
+    }
+
     p.loadImageOntoPixelCanvas= (img) =>{
       for (let i = 0; i < img.width; i++){
         for (let j = 0; j < img.height; j++){
@@ -37,13 +53,22 @@ let sketch = function(p){
     }
 
     p.setup = () => {
-
       p.loadFileInput = p.select("#painter-load-file-input");
-      p.loadFileInput.changed(p.loadPainterImage);
+      p.loadFileInput.changed(p.loadFromFile);
 
-	  p.pixelCanvasSize = 480;
-	  p.tileDimension = 16;
-	  p.pixelDrawSize = p.pixelCanvasSize/p.tileDimension;
+      p.loadButton = p.select('#painter-load-button');
+      p.loadButton.mousePressed(p.loadFromDb);
+
+      p.saveButton = p.select('#painter-save-button');
+      p.loadButton.mousePressed(p.saveToDb);
+      
+      p.clearButton = p.select('#painter-clear-button');
+      p.clearButton.mousePressed(p.clearCanvas);
+
+
+	    p.pixelCanvasSize = 480;
+	    p.tileDimension = 16;
+	    p.pixelDrawSize = p.pixelCanvasSize/p.tileDimension;
       p.selectedColor = [255,255,255];
       p.pMouseIsPressed = p.mouseIsPressed;
       p.pixelGrid = new PixelGrid(p.tileDimension,p.tileDimension);
@@ -56,7 +81,6 @@ let sketch = function(p){
     }
 
     p.draw = () => {
-
       p.background(128);
       p.fill(0);
       p.drawPixelGrid(p.pixelGrid)
