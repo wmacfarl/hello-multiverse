@@ -1,7 +1,9 @@
 Sprite Editor TODO
 
-Save the image-set and animation-set as an object in the application database to be loaded+used in other parts of the app.
+Set image in paint editor from selected frame in animation editor
+
 Save/load the image into an application database
+Save the image-set and animation-set as an object in the application database to be loaded+used in other parts of the app.
 
 Reasonable interface for setting the colors in the color-palette
 Animation preview play/pause
