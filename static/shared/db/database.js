@@ -1,9 +1,9 @@
-import Dexie from 'dexie';
-import { SpriteFrame } from '../models/sprite_frame.js';
-import { Sprite } from '../models/sprite.js';
-import { SpriteAnimation } from '../models/sprite_animation.js';
+import Dexie from 'https://unpkg.com/dexie@latest/dist/dexie.es.js?module';  //'dexie';
+import { SpriteFrame } from './models/sprite_frame.js';
+import { Sprite } from './models/sprite.js';
+import { SpriteAnimation } from './models/sprite_animation.js';
 
-const db = new Dexie('myDb');
+    const db = new Dexie('myDb');
 db.version(1).stores({
     sprites: '++id, name',
     sprite_frames: '++id,name,size',

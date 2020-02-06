@@ -1,12 +1,13 @@
-import db from './static/src/db/database.js';
+//import db from './static/src/db/database.js';
 
 //console.log(require.resolve('./static/src/db/database.js'));
-var express = require("express");
-var http = require("http");
-var path = require("path");
-var logger = require("morgan");
-var bodyParser = require("body-parser");
+import express from 'express';
+import http from 'http';
+import path from 'path';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
 
+const __dirname = path.resolve();
 var app = express();
 var app_modes = ["map", "screen", "code", "sprite", "tile", "music"]
 

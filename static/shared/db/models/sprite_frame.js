@@ -1,4 +1,4 @@
-import db from '../db/database.js';
+import db from '../database.js';
 export class SpriteFrame{
     constructor(id, name, imageFile){
         this.id = id;

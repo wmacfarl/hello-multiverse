@@ -1,5 +1,5 @@
-import { PixelGrid } from '../shared/pixel-grid.js';
-import { db } from '../db/database.js';
+import { PixelGrid } from './pixel-grid.js';
+import db from '../../shared/db/database.js';
 
 let sketch = function (p) {
 

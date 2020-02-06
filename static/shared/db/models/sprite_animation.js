@@ -1,4 +1,4 @@
-import db from '../db/database.js';
+import db from '../database.js';
 export class SpriteAnimation{
 
     constructor(id, name){

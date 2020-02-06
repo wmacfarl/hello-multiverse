@@ -1,4 +1,4 @@
-import {pixelPainter} from '../shared/pixel-painter.js'
+import {pixelPainter} from './pixel-painter.js'
 import {spriteAnimationEditor} from './sprite-animation-editor.js'
 
 export let spriteEditor = {};
