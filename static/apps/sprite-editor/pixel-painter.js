@@ -4,7 +4,6 @@ import { SpriteFrame } from '../../shared/db/models/sprite_frame.js';
 import db from '../../shared/db/database.js';
 
 let sketch = function(p){
-
     p.setSpriteEditor = (spriteEditor) =>{
       p.spriteEditor = spriteEditor;
     }
@@ -169,12 +168,13 @@ let sketch = function(p){
                  colorPalette.paletteColors[i][1],
                  colorPalette.paletteColors[i][2]);
         p.rect(x, y,w ,h);
-
+        if (p.loadModalDiv.attribute('hidden') === 'true'){
         if(p.mouseX >= x && p.mouseY >= y 
           && p.mouseX < x+w && p.mouseY < y+h){
          if(p.mouseIsPressed && !p.pMouseIsPressed){
           p.selectedColor = colorPalette.paletteColors[i];
          }
+        }
        }
       }
     }
@@ -186,12 +186,14 @@ let sketch = function(p){
           let y = yIndex*p.pixelDrawSize;
           let w = p.pixelDrawSize;
           let h = p.pixelDrawSize;
-
+         
+          if (p.loadModalDiv.attribute('hidden') === 'true'){
           if(p.mouseX >= x && p.mouseY >= y 
             && p.mouseX < x+w && p.mouseY < y+h &&
-            p.mouseIsPressed && !p.pMouseIsPressed){
+            p.mouseIsPressed && !p.pMouseIsPressed){              
             pixelGrid.pixels[xIndex][yIndex] = p.color(p.selectedColor[0], p.selectedColor[1], p.selectedColor[2]);
            }
+          }
           
           p.stroke(255);
           p.fill(pixelGrid.pixels[xIndex][yIndex]);

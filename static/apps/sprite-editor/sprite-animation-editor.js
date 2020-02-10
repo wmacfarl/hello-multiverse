@@ -8,6 +8,7 @@ let sketch = function (p) {
   }
 
   p.setup = () => {
+    p.loadModalDiv = p.select('#load-files-modal');
     p.selectedAnimation = -1;
     p.selectedFrame = -1;
     p.tileDimension = 16;
@@ -49,10 +50,6 @@ let sketch = function (p) {
   p.draw = () => {
     p.background(255);
 
-    if (p.mouseIsPressed) {
-      let topLeftColor = p.spriteEditor.pixelPainter.pixelGrid.pixels[0][0];
-    }
-
     for (let i = 0; i < 4; i++) {
       p.drawAnimation(i);
     }
@@ -84,10 +81,12 @@ let sketch = function (p) {
       p.fill(128, 80);
       p.rect(x, y, w, h);
     }
+    if (p.loadModalDiv.attribute('hidden') === 'true'){
     if (p.mouseIsPressed && p.pointInRectangle(p.mouseX, p.mouseY, x, y, w, h)) {
       p.selectedAnimation = animationIndex;
       p.selectedFrame = frameIndex;
     }
+  }
   }
 
   p.pointInRectangle = (pX, pY, x, y, w, h) => {
