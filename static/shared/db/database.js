@@ -12,6 +12,7 @@ db.version(1).stores({
     sprite_animations_in_sprites: '++id, sprite_animation_id, sprite_id'
 });
 
+db.sprite_frames.clear();
 
 
 export default db;
