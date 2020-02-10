@@ -30,24 +30,44 @@ let sketch = function(p){
     }
 
     p.loadFromDb = () =>{
+      p.loadModalGridContainer.html('');
       p.loadModalDiv.attribute('hidden', 'false');
       p.loadModalDiv.style('display', 'block');
       var collection =  db.sprite_frames.toCollection();
       var items = '';
 
       console.log('before loop');
-       collection.each(function(frame) {
-        //let img = p.createImage(frame.imageFile);
+      var itemIndex = 0;
+      var rowLength = 6;
+      var rowDiv;
+      collection.each(function(frame) {
 
+        if (itemIndex % rowLength === 0){
+          rowDiv = document.createElement('div');
+          rowDiv.setAttribute('class', 'row form-group');
+          p.loadModalGridContainer.elt.appendChild(rowDiv);
+        }
+
+        var fig = document.createElement('figure');
+        var figCaption = document.createElement('figcaption');
+        figCaption.innerHTML = frame.name.slice(0,16);
         var image = new Image();
         image.src = URL.createObjectURL(frame.imageFile);
+        image.width =96;
+        image.height = 96;
+        image.setAttribute('style', 'image-rendering: pixelated;');
 
-        var newDiv = document.createElement('div');
-        var newText = document.createTextNode(frame.id + ': ' + frame.name);
-        newDiv.appendChild(newText);
-        newDiv.appendChild(image);
-        p.loadModalBody.elt.appendChild(newDiv);
-        items+=frame.name;});
+        var colDiv = document.createElement('div');
+        colDiv.setAttribute('class', 'col-md-2');
+        var newText = document.createTextNode(frame.name);
+        fig.appendChild(image);
+        fig.appendChild(figCaption);
+
+        colDiv.appendChild(fig);
+        rowDiv.appendChild(colDiv);
+
+        itemIndex++;
+      });
       }
 
     p.savePixelCanvasToDb = () => {
@@ -108,7 +128,7 @@ let sketch = function(p){
       p.closeLoadModalButton = p.select('#close-load-modal-button');
       p.closeLoadModalButton.mousePressed(p.closeModal);
 
-      p.loadModalBody = p.select('#load-modal-body');
+      p.loadModalGridContainer = p.select('#load-modal-grid-container');
 
 	    p.pixelCanvasSize = 480;
 	    p.tileDimension = 16;
