@@ -12,8 +12,6 @@ db.version(1).stores({
     sprite_animations_in_sprites: '++id, sprite_animation_id, sprite_id'
 });
 
-db.sprites.mapToClass(Sprite);
-db.sprite_frames.mapToClass(SpriteFrame);
-db.sprite_animations.mapToClass(SpriteAnimation);
+
 
 export default db;

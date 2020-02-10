@@ -1,5 +1,7 @@
 import {PixelGrid} from './pixel-grid.js';
 import { ColorPalette } from './color-palette.js';
+import { SpriteFrame } from '../../shared/db/models/sprite_frame.js';
+import db from '../../shared/db/database.js';
 
 let sketch = function(p){
 
@@ -28,11 +30,46 @@ let sketch = function(p){
     }
 
     p.loadFromDb = () =>{
+      p.loadModalDiv.attribute('hidden', 'false');
+      p.loadModalDiv.style('display', 'block');
+      var collection =  db.sprite_frames.toCollection();
+      var items = '';
 
+      console.log('before loop');
+       collection.each(function(frame) {
+        //let img = p.createImage(frame.imageFile);
+
+        var image = new Image();
+        image.src = URL.createObjectURL(frame.imageFile);
+
+        var newDiv = document.createElement('div');
+        var newText = document.createTextNode(frame.id + ': ' + frame.name);
+        newDiv.appendChild(newText);
+        newDiv.appendChild(image);
+        p.loadModalBody.elt.appendChild(newDiv);
+        items+=frame.name;});
+      }
+
+    p.savePixelCanvasToDb = () => {
+      let img = p.createImage(16, 16);
+      img.loadPixels();
+      for (let i = 0; i < p.pixelGrid.pixels.length; i++) {
+        for (let j = 0; j < p.pixelGrid.pixels[i].length; j++) {
+          img.set(i, j, p.color(p.pixelGrid.pixels[i][j]));
+        }
+      }
+      img.updatePixels();
+      img.canvas.toBlob(savePngBlobToDB);
     }
 
-    p.saveToDb = () =>{
+    function savePngBlobToDB(pngBlob){
+      if (p.nameInput.value() === ''){
+        p.nameInput.value('untitled');
+      }
 
+      var newSpriteFrame = new SpriteFrame(p.nameInput.value(), pngBlob);
+      console.log("nsf = " + newSpriteFrame);
+      newSpriteFrame.save();
     }
 
     p.clearCanvas = () =>{
@@ -60,11 +97,18 @@ let sketch = function(p){
       p.loadButton.mousePressed(p.loadFromDb);
 
       p.saveButton = p.select('#painter-save-button');
-      p.loadButton.mousePressed(p.saveToDb);
+      p.saveButton.mousePressed(p.savePixelCanvasToDb);
       
       p.clearButton = p.select('#painter-clear-button');
       p.clearButton.mousePressed(p.clearCanvas);
 
+      p.nameInput = p.select('#painter-name-input');
+      p.loadModalDiv = p.select('#load-files-modal');
+      
+      p.closeLoadModalButton = p.select('#close-load-modal-button');
+      p.closeLoadModalButton.mousePressed(p.closeModal);
+
+      p.loadModalBody = p.select('#load-modal-body');
 
 	    p.pixelCanvasSize = 480;
 	    p.tileDimension = 16;
@@ -75,6 +119,11 @@ let sketch = function(p){
       p.colorPalette = new ColorPalette(16);
       let canvas = p.createCanvas(p.pixelCanvasSize+p.pixelDrawSize*2, p.pixelCanvasSize).parent('pixel-painter-canvas');
     };
+
+    p.closeModal = () => {
+      p.loadModalDiv.attribute('hidden', 'true');
+      p.loadModalDiv.style('display', 'none');
+    }
 
     p.importFile = () => {
       console.log(p.loadFileInput.value())

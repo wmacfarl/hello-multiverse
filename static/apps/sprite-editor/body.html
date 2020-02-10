@@ -8,16 +8,18 @@
             <div class="row">
                 <div id="pixel-painter-ui">
                     <div class="btn-group" role="group">
-                        <input id = "painter-load-file-input" accept="image/*" type="file" id="fileSelector">
+                        <input id = "painter-load-file-input" accept="image/*" type="file" >
+                        <input id = "painter-name-input">
                     </div>
                     <div class="btn-group" role="group">
-                        <button id = "painter-load-button"type="button" class="btn btn-secondary" onclick = >Load</button>
+                        <button id = "painter-load-button"type="button" class="btn btn-secondary">Load</button>
                         <button id = "painter-save-button"type="button" class="btn btn-secondary">Save</button>
                         <button id = "painter-clear-button" type="button" class="btn btn-secondary">Clear</button>
                       </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="row">
                 <div id="sprite-animation-editor-canvas"></div>
@@ -36,3 +38,20 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="load-files-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            Load
+          <button type="button" class="close" id="close-load-modal-button" aria-label="Close">
+              x
+          </button>
+          <br/>
+        </div>
+        <div id = "load-modal-body" class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>
