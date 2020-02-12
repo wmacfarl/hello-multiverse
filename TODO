@@ -1,10 +1,10 @@
 Sprite Editor TODO
 
-Save the image-set as an animation
+save the image-set as an animation
 save an animation-set
 
-Reasonable interface for setting the colors in the color-palette
-Animation preview play/pause
+save/load color-palette into database
+animation preview play/pause
 
 DONE
 Upload an image from your computer into the paint editor
@@ -12,3 +12,4 @@ Edit the image using the paint editor
 Set images from paint editor as frames in the animation editor
 Set image in paint editor from selected frame in animation editor
 Save/load the image into an application database
+Reasonable interface for setting the colors in the color-palette
