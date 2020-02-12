@@ -132,6 +132,10 @@ let sketch = function(p){
 
       p.loadModalGridContainer = p.select('#load-modal-grid-container');
 
+      p.colorPicker = p.createColorPicker('#000000');
+      p.colorPicker.hide();
+      p.colorPicker.input(p.setPaletteColor);
+
 	    p.pixelCanvasSize = 480;
 	    p.tileDimension = 16;
 	    p.pixelDrawSize = p.pixelCanvasSize/p.tileDimension;
@@ -140,7 +144,17 @@ let sketch = function(p){
       p.pixelGrid = new PixelGrid(p.tileDimension,p.tileDimension);
       p.colorPalette = new ColorPalette(16);
       let canvas = p.createCanvas(p.pixelCanvasSize+p.pixelDrawSize*2, p.pixelCanvasSize).parent('pixel-painter-canvas');
+      canvas.elt.oncontextmenu = function(e) {
+        e.preventDefault();
+      }
     };
+
+    p.setPaletteColor = (event) => {
+      console.log("this.value = " + p.colorPicker.color());
+      p.colorPalette.paletteColors[p.colorPalette.colorToChangeIndex] =
+      p.colorPicker.color().levels;
+      p.selectedColor = p.colorPicker.color().levels;
+    }
 
     p.closeModal = () => {
       p.loadModalDiv.attribute('hidden', 'true');
@@ -175,8 +189,13 @@ let sketch = function(p){
         if(p.mouseX >= x && p.mouseY >= y 
           && p.mouseX < x+w && p.mouseY < y+h){
          if(p.mouseIsPressed && !p.pMouseIsPressed){
-          p.selectedColor = colorPalette.paletteColors[i];
-         }
+            if (p.mouseButton === p.LEFT){
+              p.selectedColor = colorPalette.paletteColors[i];
+            } else if (p.mouseButton === p.RIGHT){
+              p.colorPalette.colorToChangeIndex = i;
+              p.colorPicker.elt.click();
+            }
+          } 
         }
        }
       }
