@@ -55,7 +55,8 @@ let sketch = function(p){
         image.width =96;
         image.height = 96;
         image.setAttribute('style', 'image-rendering: pixelated;');
-
+        var p5image = p.loadImage(image.src);
+        image.onclick=function() {p.loadImageOntoPixelCanvas(p5image);};
         var colDiv = document.createElement('div');
         colDiv.setAttribute('class', 'col-md-2');
         var newText = document.createTextNode(frame.name);
@@ -100,12 +101,14 @@ let sketch = function(p){
     }
 
     p.loadImageOntoPixelCanvas= (img) =>{
+      console.log("loading image: " + img);
       for (let i = 0; i < img.width; i++){
         for (let j = 0; j < img.height; j++){
           let pixel = img.get(i,j);
           p.pixelGrid.pixels[i][j] = pixel;
         }
       }
+      p.closeModal();
     }
 
     p.setup = () => {
