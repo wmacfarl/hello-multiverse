@@ -36,23 +36,32 @@ let sketch = function (p) {
     p.playPauseButton = p.select("#animation-play-pause-button");
     p.playPauseButton.mousePressed(p.playPausePreview);
     p.saveSpriteButton = p.select("#save-sprite-button");
-    p.noSmooth();
+    p.saveSpriteButton.mousePressed(p.saveSpriteToDb);
+    p.loadSpriteButton = p.select("#load-sprite-button");
+    p.loadSpriteButton.mousePressed(p.loadSpriteFromDb);
 
+    p.noSmooth();
   };
 
+  p.saveSpriteToDb = () => {
+    alert("save");
+  }
+
+  p.loadSpriteFromDb = () => {
+    alert("load");    
+  }
+
+
   p.playPausePreview = () => {
-    console.log("button pressed");
     p.playingPreview = !p.playingPreview;
 
     if(p.playingPreview){
       if (p.selectedFrame >= 0 && p.selectedAnimation >= 0){
         p.previewFrameIndex = 0;
         p.previewAnimationIndex = p.selectedAnimation;
-        console.log("starting to play");
         p.timeAtLastPreviewFrame = p.millis();
       }
     }else {
-      console.log("stopping");
       p.previewFrameIndex = -1;
     }
   }
@@ -89,7 +98,6 @@ let sketch = function (p) {
     img.loadPixels();
     for (let i = 0; i < pixelData.length; i++) {
       for (let j = 0; j < pixelData[i].length; j++) {
-        console.log(pixelData[i][j]);
         img.set(i, j, p.color(pixelData[i][j]));
       }
     }
@@ -117,11 +125,9 @@ let sketch = function (p) {
       }
 
       let img = p.frameImageArray[p.previewAnimationIndex][p.previewFrameIndex];
-      console.log("img = " + img);
       if (img === undefined){
         p.previewFrameIndex = 0;
         img = p.frameImageArray[p.previewAnimationIndex][p.previewFrameIndex];
-        console.log("no image");
       }
       
       return img;
