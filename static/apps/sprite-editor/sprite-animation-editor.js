@@ -5,6 +5,7 @@ let sketch = function (p) {
 
   p.setSpriteEditor = (spriteEditor) => {
     p.spriteEditor = spriteEditor;
+
   }
 
   p.setup = () => {
@@ -25,10 +26,30 @@ let sketch = function (p) {
 
     p.setButton = p.select("#animation-set-button");
     p.setButton.mousePressed(p.setAnimationFrame);
+    p.editButton = p.select("#animation-edit-button");
+    p.editButton.mousePressed(p.editSelectedImage);
+
+    p.clearButton = p.select("#animation-clear-button");
+    p.playPauseButton = p.select("#animation-play-pause-button");
+    p.saveSpriteButton = p.select("#save-sprite-button");
   };
 
-  p.setAnimationFrame = () => {
+  p.editSelectedImage = () => {
+    let img = p.getSelectedImage();
+    if (img){
+      p.spriteEditor.pixelPainter.loadImageOntoPixelCanvas(img);
+    }
+  }
 
+  p.getSelectedImage = () => {
+    if (p.selectedFrame >= 0 && p.selectedAnimation >= 0){
+      return p.frameImageArray[p.selectedAnimation][p.selectedFrame];
+    }else{
+      return false;
+    }
+  }
+
+  p.setAnimationFrame = () => {
     let pixelData = p.spriteEditor.pixelPainter.pixelGrid.pixels;
     let img = p.imageFromPixelArray(pixelData);
     p.frameImageArray[p.selectedAnimation][p.selectedFrame] = img;
