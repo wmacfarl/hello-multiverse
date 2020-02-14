@@ -75,7 +75,9 @@ let sketch = function (p) {
     }
 
     if (p.frameImageArray[animationIndex][frameIndex]) {
+      p.noSmooth();
       p.image(p.frameImageArray[animationIndex][frameIndex], x, y, w, h);
+      p.smooth();
     } else {
 
       p.fill(128, 80);

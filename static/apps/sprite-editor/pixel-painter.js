@@ -11,6 +11,7 @@ let sketch = function(p){
     p.loadFromFile = () =>{
       let f = p.loadFileInput.elt.files[0];
       p5.File._load(f, p.readyImageForImport);
+      p.nameInput.value(p.loadFileInput.elt.files[0].name);
     }
 
     p.readyImageForImport = (f) =>{
@@ -159,10 +160,6 @@ let sketch = function(p){
     p.closeModal = () => {
       p.loadModalDiv.attribute('hidden', 'true');
       p.loadModalDiv.style('display', 'none');
-    }
-
-    p.importFile = () => {
-      console.log(p.loadFileInput.value())
     }
 
     p.draw = () => {
