@@ -28,11 +28,15 @@ let sketch = function (p) {
     p.setButton.mousePressed(p.setAnimationFrame);
     p.editButton = p.select("#animation-edit-button");
     p.editButton.mousePressed(p.editSelectedImage);
-
     p.clearButton = p.select("#animation-clear-button");
+    p.clearButton.mousePressed(p.clearSelectedImage);
     p.playPauseButton = p.select("#animation-play-pause-button");
     p.saveSpriteButton = p.select("#save-sprite-button");
   };
+
+  p.clearSelectedImage = () => {
+    p.frameImageArray[p.selectedAnimation][p.selectedFrame] = null;
+  }
 
   p.editSelectedImage = () => {
     let img = p.getSelectedImage();
