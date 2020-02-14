@@ -9,20 +9,23 @@ let sketch = function (p) {
   }
 
   p.setup = () => {
+    p.timeAtLastPreviewFrame = 0;
     p.loadModalDiv = p.select('#load-files-modal');
     p.selectedAnimation = -1;
     p.selectedFrame = -1;
     p.tileDimension = 16;
     p.canvasHeight = 480;
     p.pixelDrawSize = p.canvasHeight / p.tileDimension;
-    p.canvasWidth = p.pixelDrawSize * 2 * 8;
+    p.canvasWidth = p.pixelDrawSize * 2 * 10;
     p.frameSize = p.pixelDrawSize * 2;
     let canvas = p.createCanvas(p.canvasWidth, p.canvasHeight / 2).parent('sprite-animation-editor-canvas');
-
+    p.previewFrameIndex = -1;
+    p.previewAnimationIndex = -1;
     p.frameImageArray = [];
     for (let i = 0; i < 4; i++) {
       p.frameImageArray[i] = [];
     }
+    p.playingPreview = false;
 
     p.setButton = p.select("#animation-set-button");
     p.setButton.mousePressed(p.setAnimationFrame);
@@ -31,8 +34,28 @@ let sketch = function (p) {
     p.clearButton = p.select("#animation-clear-button");
     p.clearButton.mousePressed(p.clearSelectedImage);
     p.playPauseButton = p.select("#animation-play-pause-button");
+    p.playPauseButton.mousePressed(p.playPausePreview);
     p.saveSpriteButton = p.select("#save-sprite-button");
+    p.noSmooth();
+
   };
+
+  p.playPausePreview = () => {
+    console.log("button pressed");
+    p.playingPreview = !p.playingPreview;
+
+    if(p.playingPreview){
+      if (p.selectedFrame >= 0 && p.selectedAnimation >= 0){
+        p.previewFrameIndex = 0;
+        p.previewAnimationIndex = p.selectedAnimation;
+        console.log("starting to play");
+        p.timeAtLastPreviewFrame = p.millis();
+      }
+    }else {
+      console.log("stopping");
+      p.previewFrameIndex = -1;
+    }
+  }
 
   p.clearSelectedImage = () => {
     p.frameImageArray[p.selectedAnimation][p.selectedFrame] = null;
@@ -54,10 +77,12 @@ let sketch = function (p) {
   }
 
   p.setAnimationFrame = () => {
+    if (p.selectedAnimation >= 0 && p.selectedFrame >= 0){
     let pixelData = p.spriteEditor.pixelPainter.pixelGrid.pixels;
     let img = p.imageFromPixelArray(pixelData);
     p.frameImageArray[p.selectedAnimation][p.selectedFrame] = img;
   }
+}
 
   p.imageFromPixelArray = (pixelData) => {
     let img = p.createImage(16, 16);
@@ -78,7 +103,49 @@ let sketch = function (p) {
     for (let i = 0; i < 4; i++) {
       p.drawAnimation(i);
     }
+
+    p.drawAnimationPreview();
   };
+
+  p.getCurrentPreviewFrame = () => {
+    if (p.previewFrameIndex >=0){
+      let timeDelta = p.millis() - p.timeAtLastPreviewFrame;
+
+      if (timeDelta > 160){
+        p.timeAtLastPreviewFrame = p.millis();
+        p.previewFrameIndex++;
+      }
+
+      let img = p.frameImageArray[p.previewAnimationIndex][p.previewFrameIndex];
+      console.log("img = " + img);
+      if (img === undefined){
+        p.previewFrameIndex = 0;
+        img = p.frameImageArray[p.previewAnimationIndex][p.previewFrameIndex];
+        console.log("no image");
+      }
+      
+      return img;
+    } else {
+      return false;
+    }
+  }
+
+  p.drawAnimationPreview = () => {
+    p.fill(128);
+    p.stroke(0);
+    p.rect(p.width-64,0, 64,64);
+    if (p.playingPreview){
+      let img = p.getCurrentPreviewFrame();
+      if (img){
+        p.image(img, p.width-64,0, 64,64);
+      }
+    } else {
+      let img = p.getSelectedImage();
+      if (img){
+        p.image(img, p.width-64,0, 64,64);
+      }
+    }
+  }
 
   p.drawAnimation = (animationIndex) => {
     p.fill(128);
@@ -100,9 +167,7 @@ let sketch = function (p) {
     }
 
     if (p.frameImageArray[animationIndex][frameIndex]) {
-      p.noSmooth();
       p.image(p.frameImageArray[animationIndex][frameIndex], x, y, w, h);
-      p.smooth();
     } else {
 
       p.fill(128, 80);
@@ -121,4 +186,5 @@ let sketch = function (p) {
       pY <= y + h && pY >= y;
   }
 }
+
 export let spriteAnimationEditor = new p5(sketch);
